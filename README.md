@@ -60,4 +60,3 @@ BITSbids is a web application developed as part of the BITS student project, des
    Open your web browser and go to `http://localhost:3000` for the frontend.
 ```
 
-You can copy and paste this text directly into your `README.md` file. Adjust the placeholders as needed, especially for the database and GitHub repository details.
