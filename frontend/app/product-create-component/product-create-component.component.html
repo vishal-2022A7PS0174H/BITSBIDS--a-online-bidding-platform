@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h2>Create Product</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" formControlName="name" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" formControlName="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <input type="text" class="form-control" id="category" formControlName="category">
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Asking Price:</label>
+      <input type="number" class="form-control" id="askingPrice" formControlName="askingPrice" required>
+    </div>
+    <div class="form-group">
+      <label for="minBidIncrement">Min Bid Increment:</label>
+      <input type="number" class="form-control" id="minBidIncrement" formControlName="minBidIncrement">
+    </div>
+    <div class="form-group">
+      <label for="bidClosingDate">Bid Closing Date:</label>
+      <input type="datetime-local" class="form-control" id="bidClosingDate" formControlName="bidClosingDate">
+    </div>
+    <div class="form-group">
+      <label for="file">Upload Image:</label>
+      <input type="file" class="form-control-file" id="file" (change)="onFileSelected($event)" formControlName="file" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

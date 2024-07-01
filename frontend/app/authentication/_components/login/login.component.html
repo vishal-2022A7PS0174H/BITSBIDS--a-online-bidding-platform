@@ -1,0 +1,99 @@
+<ngx-spinner fullScreen="false">
+  <p style="font-size: 20px; color: white">{{'please_wait' | translate}} ...</p>
+</ngx-spinner>
+
+<div class="auth-wrapper d-flex no-block justify-content-center align-items-center">
+  <div class="auth-box" style="max-width: 500px !important;">
+    <div id="loginform" [ngClass]="{'d-none': recoverform}">
+      <div class="logo">
+        <h2 class="font-medium m-b-20 text-base font-weight-bold text-uppercase">Welcome Back </h2>
+        <h2 class="font-medium m-b-20 text-warning font-weight-bold text-uppercase">bitsbids</h2>
+      </div>
+      <alert fade="true"></alert>
+      <!-- Form -->
+      <div class="row">
+        <div class="col-12">
+          <form class="form-horizontal m-t-20" [formGroup]="loginData" (ngSubmit)="doLogin()">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+              </div>
+              <input type="text" formControlName="username" class="form-control form-control-lg" name="username"
+                     placeholder="Username"
+                     [ngClass]="{ 'is-invalid': submitted && fields.username.errors }">
+              </div>
+            <div *ngIf="submitted && fields.username.errors" class="invalid-feedback">
+              <div *ngIf="fields.username.errors.required">Username is required</div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon2"><i class="ti-lock"></i></span>
+              </div>
+              <input type="password" formControlName="password" class="form-control form-control-lg" name="password"
+                     placeholder="{{'password' |  translate  }}"
+                     [ngClass]="{ 'is-invalid': submitted && fields.password.errors }">
+              <div *ngIf="submitted && fields.password.errors" class="invalid-feedback">
+                <div *ngIf="fields.password.errors.required">Pass is required</div>
+              </div>
+            </div>
+           <!-- <div class="form-group row">
+              <div class="col-md-12">
+                <div class="custom-control custom-checkbox">
+                  <a (click)="showRecoverForm()" href="javascript:void(0)" id="to-recover"
+                     class="text-dark float-right"><i class="fa fa-lock m-r-5"></i> {{'forgot_password' | translate}}
+                  </a>
+                </div>
+              </div>
+            </div>-->
+            <div class="form-group text-center">
+              <div class="col-xs-12 p-b-20">
+                <button class="btn btn-block btn-md btn-rounded btn-default text-white font-weight-bold" type="submit">
+                  {{'login' | translate}}
+                </button>
+              </div>
+            </div>
+            <div class="form-group m-b-0 m-t-10">
+              <div class="col-sm-12 text-center">
+                {{'no_account' | translate}} <a href="#/authentication/signup"
+                                                class="text-info m-l-5"><b>{{'signup' | translate}}</b></a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="recoverform" [ngClass]="{'d-block': recoverform}">
+      <alert></alert>
+      <div class="logo">
+        <span class="db"><img src="../../../../assets/images/logo.png" style="max-width: 40%" alt="logo"/></span>
+        <h2 class="font-medium m-b-20">{{'recover_pass' | translate}}</h2>
+        <span>{{'reset_pass_subtitle' | translate}}</span>
+      </div>
+      <div class="row m-t-20">
+        <!-- Form -->
+        <form class="col-12">
+          <!-- email -->
+          <div class="form-group row">
+            <div class="col-12">
+              <input class="form-control form-control-lg" type="email" required=""
+                     placeholder="E-mail" #reg_email>
+            </div>
+          </div>
+          <!-- pwd -->
+          <div class="row m-t-20">
+           <!-- <div class="col-12">
+              <button class="btn btn-block btn-lg btn-danger btn-rounded" (click)="sendResetLink(reg_email.value)"
+                      type="submit" name="action">{{'reset' | translate}}
+              </button>
+            </div>-->
+            <br>
+            <div class="col-sm-12 text-center m-t-40">
+              <a href="javascript:void(0)" (click)="showLoginForm()"
+                 class="text-info m-l-5 "><b>{{'go_back_login' | translate}}</b></a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

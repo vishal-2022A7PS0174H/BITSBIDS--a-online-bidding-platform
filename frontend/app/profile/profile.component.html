@@ -1,0 +1,84 @@
+<!-- Add this to your existing HTML -->
+
+<!-- Profile Card with Edit Button -->
+<div class="card profile-card col-7 shadow">
+  <div class="card-body text-left">
+    <div class="profile-details">
+      <div class="profile-header">
+        <h2>{{ user.name }}</h2>
+        <p class="text-muted">{{ user.username }}</p>
+      </div>
+
+      <div class="profile-section">
+        <h5 class="section-title">Personal Information</h5>
+        <p class="text-muted"><b>Hostel Name:</b> {{ user.hostel }}</p>
+        <p class="text-muted"><b>Phone:</b> {{ user.phone }}</p>
+        <p class="text-muted"><b>Email:</b>: <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+        <button class="btn btn-sm" (click)="openEditProfileModal(editProfileModal)">Edit Profile</button>
+      </div>
+      <hr>
+      <div class="profile-section">
+        <h5 class="section-title">Financial Details</h5>
+        <p class="text-primary"><b>Credit Balance:</b> ₹ {{ user.credits }}</p>
+        <button class="btn btn-sm btn-success" (click)="openModal(buyCreditModal)">Buy Credits</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <!-- Credit Modal -->
+  <ng-template #buyCreditModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Buy Credit</h4>
+      <button type="button" class="btn btn-sm btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true" class="text-white">X</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label for="name">Amount:</label>
+        <input type="number" class="form-control" #amount required>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cancel click')">Cancel</button>
+        <button type="submit" class="btn btn-success" (click)="buyCredit(amount.value)">Buy</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<div>
+  <!-- Edit Modal -->
+  <ng-template #editProfileModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Edit Product</h4>
+      <button type="button" class="btn btn-sm btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true" class="text-white">X</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <!-- Add form fields for updating user details -->
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" class="form-control" [(ngModel)]="user.name" required>
+        </div>
+        <div class="form-group">
+          <label for="hostelName">Hostel Name</label>
+          <input type="text" id="hostelName" name="hostel" class="form-control" [(ngModel)]="user.hostel" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" name="phone" class="form-control" [(ngModel)]="user.phone" required>
+        </div>
+        <!-- Add more form fields as needed -->
+
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+      </form>
+    </div>
+  </ng-template>
+
+</div>

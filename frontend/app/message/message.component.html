@@ -1,0 +1,62 @@
+<!-- message.component.html -->
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <!-- Inbox -->
+      <h2 class="mb-3">Inbox</h2>
+      <div class="list-group">
+        <button *ngFor="let entry of uniqueUserIds"
+                (click)="selectUser(entry.senderId, entry.productId)"
+                [class.selected]="entry.senderId === selectedUserId"
+                type="button"
+                class="list-group-item list-group-item-action">
+          {{ (isUsernameBlurCondition(entry) ? getUserById(entry.senderId)?.username : getUserById(entry.senderId)?.username | blurUsername) }}
+          - {{ getProductByUserIdAndProductId(entry.senderId, entry.productId)?.name }}
+        </button>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <!-- Chat History -->
+      <h2 class="mb-3">Chat History</h2>
+      <div *ngIf="selectedUserId" class="card" style="max-height:500px !important;overflow-y: scroll">
+        <div class="card-body">
+          <div class="chat-history" #chatHistoryContainer>
+            <ul class="list-group list-group-flush">
+              <li *ngFor="let message of chatHistory" class="list-group-item">
+
+                <div *ngIf="message.sender.id != userId; else currentUser">
+                  <strong>{{ isUsernameBlurConditionHistory(message) ? (message.sender.username) : (message.sender.username  | blurUsername) }}
+                    :</strong>
+                  {{ message.content }}
+                  <div class="small text-muted">{{ message.sentAt | date: 'medium' }}</div>
+                </div>
+                <ng-template #currentUser style="text-align: right !important;">
+                  <div class="text-right">
+                    <strong>You:</strong>
+                    {{ message.content }}
+                    <div class="small text-muted">{{ message.sentAt | date: 'medium' }}</div>
+                  </div>
+                </ng-template>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <!-- New Message Input -->
+          <div class="input-group">
+            <textarea [(ngModel)]="newMessageContent" class="form-control"
+                      placeholder="Type your message..."></textarea>
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!selectedUserId" class="alert alert-info mt-3">
+        Select a user to start chatting.
+      </div>
+    </div>
+  </div>
+</div>

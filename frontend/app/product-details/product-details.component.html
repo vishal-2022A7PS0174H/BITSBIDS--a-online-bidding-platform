@@ -1,0 +1,65 @@
+<!-- product-details.component.html -->
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <img [src]="base_url+'/api/products/'+productId+'/images'" class="img-fluid" alt="Product Image">
+    </div>
+    <div class="col-md-6"  *ngIf="productDetails">
+      <h2 class="text-primary">{{ productDetails.name }}</h2>
+      <p class="text-muted">{{ productDetails.description }}</p>
+      <p><strong>Category:</strong> {{ productDetails.category }}</p>
+      <p><strong>Asking Price:</strong> ₿ {{ productDetails.askingPrice }}</p>
+      <button class="btn btn-primary"
+              *ngIf="username===productDetails.bids.seller.username && productDetails.bids.bidStatus !== 'CLOSED'"
+              (click)="finalizeBid(productDetails, highestBidder, highestBidAmount)"><strong>Finalize Bid</strong>
+      </button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row mt-4">
+    <div class="col-md-6"  *ngIf="productDetails">
+      <h4 class="text-success">Bidding Information</h4>
+      <p><strong>Minimum Bid Increment:</strong> ₿{{ productDetails.minBidIncrement }}</p>
+      <p><strong>Current Bid Amount:</strong> ₿{{ productDetails.bids.bidAmount }}</p>
+<!--      <p><strong>Highest Bidder:</strong> {{ highestBidderName | blurUsername}}</p>-->
+      <p><strong>Highest Bid Amount:</strong> ₿{{ highestBidAmount || 'No bids yet' }}</p>
+      <p><strong>Bidding Closing Date:</strong> {{ productDetails.bids.bidClosingDate | date:'MMM d, y, h:mm a' }}</p>
+    </div>
+    <div class="col-md-6"  *ngIf="productDetails">
+      <h4 class="text-info">All Bidders</h4>
+      <ul class="list-group">
+        <li *ngFor="let bidder of productDetails.bids.bidders; let i=index" class="list-group-item">
+          <strong
+            class="text-primary">  {{isUsernameBlur(productDetails, bidder) ? bidder.bidder.username : (bidder.bidder.username | blurUsername)}}</strong>:
+          ₿ {{ bidder.amount }}
+        </li>
+      </ul>
+      <hr>
+      <h4 class="text-warning">Seller Information</h4>
+      <strong>Seller:</strong> {{isSellerNameBlur(productDetails) ? productDetails.bids.seller.username : (productDetails.bids.seller.username | blurUsername)}}
+      <button class="btn btn-primary"
+              *ngIf="username !==productDetails.bids.seller.username && productDetails.bids.bidStatus !== 'CLOSED'"
+              (click)="gotoSeller(productDetails)"><strong>Contact Seller </strong></button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row mt-4"  *ngIf="productDetails">
+    <div class="col-md-12" *ngIf="username!==productDetails.bids.seller.username && productDetails.bids.bidStatus !== 'CLOSED'">
+      <h4 class="text-danger">Your Bid</h4>
+      <!-- Form to submit a new bid -->
+      <form>
+        <div class="form-group">
+          <label for="bidAmount"><strong>Your Bid Amount (₿)</strong></label>
+          <input type="number" class="form-control" id="bidAmount" name="bidAmount" [(ngModel)]="yourBidAmount"
+                 required>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="placeBid(productDetails.bids.id)">Place Bid</button>
+      </form>
+    </div>
+  </div>
+</div>

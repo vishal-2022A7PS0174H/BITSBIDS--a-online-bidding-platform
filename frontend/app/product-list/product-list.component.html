@@ -1,0 +1,131 @@
+<!-- product-list.component.html -->
+
+<div class="container-fluid mt-3">
+  <h2>My Bids</h2>
+  <table id="productTable" class="table table-bordered" style="font-size: 12px">
+    <thead>
+    <tr class="text-center">
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Asking Price</th>
+      <th> Start Date</th>
+      <th> Closing Date</th>
+      <th> Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.askingPrice }}</td>
+      <td>{{ product.bids.creationDate }}</td>
+      <td>{{ product.bids.bidClosingDate }}</td>
+      <td>{{ product.bids.bidStatus }}</td>
+
+      <td class="text-center">
+        <button class="btn btn-xs btn-info d-inline mr-2" (click)="openEditModal(product, editModal)"><i
+          class="fa fa-edit" style="font-size: 10px"></i></button>
+        <button class="btn btn-xs btn-success d-inline" (click)="navigateToDetails(product.id)"><i
+          class="fa fa-eye" style="font-size: 10px"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<!-- product-list.component.html -->
+<div class="container-fluid mt-3">
+  <h2>My Participated Bids</h2>
+  <table id="productTable2" class="table table-bordered" style="font-size: 12px">
+    <thead>
+    <tr class="text-center">
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Asking Price</th>
+      <th> Start Date</th>
+      <th> Closing Date</th>
+      <th>Bid Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of myBids">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.askingPrice }}</td>
+      <td>{{ product.bids.creationDate }}</td>
+      <td>{{ product.bids.bidClosingDate }}</td>
+      <td>{{ product.bids.bidStatus }}</td>
+
+      <td class="text-center">
+        <button class="btn btn-xs btn-success d-inline" (click)="navigateToDetails(product.id)"><i
+          class="fa fa-eye"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div>
+  <!-- Edit Modal -->
+  <ng-template #editModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Edit Product</h4>
+      <button type="button" class="btn btn-sm btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true" class="text-white">X</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" formControlName="name" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea class="form-control" id="description" formControlName="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <input type="text" class="form-control" id="category" formControlName="category">
+        </div>
+        <div class="form-group">
+          <label for="askingPrice">Asking Price:</label>
+          <input type="number" class="form-control" id="askingPrice" formControlName="askingPrice" required>
+        </div>
+        <div class="form-group">
+          <label for="minBidIncrement">Min Bid Increment:</label>
+          <input type="number" class="form-control" id="minBidIncrement" formControlName="minBidIncrement">
+        </div>
+        <div class="form-group">
+          <label for="bidClosingDate">Bid Closing Date:</label>
+          <input type="datetime-local" class="form-control" id="bidClosingDate" formControlName="bidClosingDate">
+        </div>
+        <img [src]="base_url+'/api/products/'+this.editedProduct.id+'/images'" class="img-thumbnail"
+             style="max-width: 100px; max-height: 100px;" alt="">
+        <div class="form-group">
+          <label for="file">Upload Image:</label>
+          <input type="file" class="form-control-file" id="file" (change)="onFileSelected($event)"
+                 formControlName="file" accept="image/*">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cancel click')">Cancel</button>
+          <button type="submit" class="btn btn-success">Update</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>
