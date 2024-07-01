@@ -20,8 +20,7 @@ BITSbids is a web application developed as part of the BITS student project, des
 - Java JDK 11 or later
 - Apache Maven 3.6.3
 - npm 6.14.17
-- [Your Database] (e.g., MySQL, PostgreSQL)
-- [Database Driver, if necessary]
+- MySQL
 
 ## Installation
 
