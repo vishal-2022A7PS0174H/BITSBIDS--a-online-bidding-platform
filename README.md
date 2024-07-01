@@ -57,5 +57,4 @@ BITSbids is a web application developed as part of the BITS student project, des
 
 6. **Access the Application**:
    Open your web browser and go to `http://localhost:3000` for the frontend.
-```
 
