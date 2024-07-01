@@ -1,0 +1,124 @@
+<div class="card shadow">
+  <div class="card-body p-b-0">
+    <h3 class="card-title text-muted font-weight-bold text-uppercase">
+      {{'recent_sent' | translate}}
+    </h3>
+    <div class="table-responsive">
+      <table class="table v-middle table-bordered table-hover">
+        <thead class="bg-base-color text-white bg text-center">
+        <tr>
+          <th>{{'doc_reference' | translate}}</th>
+
+          <th>{{'signer' | translate}}</th>
+          <th>{{'status' | translate}}</th>
+          <th>{{'comments' | translate}}</th>
+
+          <th>{{'created_date' | translate}}</th>
+          <th>{{'signed_doc' | translate}}</th>
+          <th>{{'evidence' | translate}}</th>
+          <th>{{'first_signer_file' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="recent_signatures?.length != 0">
+        <tr *ngFor="let signature of recent_signatures" class="{{signature.docuDownload == 1 ? 'bg-secondary text-white' : ''}}">
+          <td style="padding: 5px !important;text-align: center">{{ signature.docID }}</td>
+
+          <td>
+            <div class="signer_1">
+              <span style="font-size: 12px;"> {{ signature.nom }}  {{ signature.prenom }}</span>
+            </div>
+            <div class="signer_2" *ngIf="signature.nom2 != ''">
+              <span style="font-size: 12px">  {{ signature.nom2 }}  {{ signature.prenom2 }}</span>
+            </div>
+          </td>
+
+          <td style="text-align: center">
+            <div class="signer_1">
+          <span
+            class="text-capitalize badge badge-pill bg-{{getStatusColor(signature.firstSignerStatus)}} text-white">{{ signature.firstSignerStatus | translate}}</span>
+            </div>
+            <div class="signer_2" *ngIf="signature.nom2 != ''">
+          <span
+            class="text-capitalize badge badge-pill bg-{{getStatusColor(signature.secondSignerStatus)}} text-white">{{ signature.secondSignerStatus | translate}}</span>
+            </div>
+          </td>
+
+          <td style="min-width: 100px;padding: 5px">
+            <div class="signer_1">
+              <p class="signer_1_span" style="font-size: 12px;">{{ signature.firstSignerComments }}</p>
+              <p *ngIf="signature.firstSignerComments != null && signature.firstSignerComments.length > 28"
+                 class="text-center" style="cursor:pointer;text-decoration:underline;font-size: 11px;font-weight: bold"
+                 ngbTooltip="{{ signature.firstSignerComments }}">
+                Show full Comments
+              </p>
+            </div>
+
+            <div class="signer_2" *ngIf="signature.nom2 != ''">
+              <p class="signer_2_span" style="font-size: 12px;">{{ signature.secondSignerComments }}</p>
+              <p *ngIf="signature.secondSignerComments != null && signature.secondSignerComments.length > 28"
+                 class="text-center" style="cursor:pointer;text-decoration:underline;font-size: 11px;font-weight: bold"
+                 ngbTooltip="{{ signature.secondSignerComments }}">
+                Show full Comments
+              </p>
+            </div>
+          </td>
+
+          <td class="text-center" style="min-width: 100px !important;padding: 2px !important;">
+            <div class="signer_1">
+            <span
+              style="font-size: 12px">{{ signature.createdDate | amLocale:'en' | amDateFormat:'DD/MM/YYYY, HH:mm'}}
+            </span>
+              <div>
+             <span style="font-size: 11px;"
+                   class="text-danger font-italic">Expire le {{ signature.expireDate | amLocale:'en' | amDateFormat:'DD/MM/YYYY, HH:mm'}}
+             </span>
+              </div>
+            </div>
+          </td>
+
+          <td class="text-center">
+            <button *ngIf="signature.firstSignerStatus === 'signed' || signature.secondSignerStatus === 'signed'"
+                    class="btn btn-rounded btn-success btn-sm"
+                    (click)="downloadDocument(signature.docID)">{{'download' | translate}}
+            </button>
+          </td>
+          <td class="text-center">
+            <button *ngIf="signature.firstSignerStatus === 'signed' || signature.secondSignerStatus === 'signed'"
+                    class="btn btn-rounded btn-success btn-sm"
+                    (click)="downloadEvidence(signature.docID)">{{'download' | translate}}
+            </button>
+          </td>
+
+          <td class="text-center">
+            <div class="signer_1">
+              <button *ngIf="signature.firstSignerID !== null && signature.firstSignerStatus === 'signed'"
+                      class="btn btn-rounded btn-success btn-sm"
+                      (click)="downloadAttached(signature.docID, signature.firstSignerID)">{{'download' | translate}}
+              </button>
+            </div>
+            <div class="signer_2" *ngIf="signature.nom2 != ''">
+              <button *ngIf="signature.secondSignerID !== null && signature.secondSignerStatus === 'signed'"
+                      class="btn btn-rounded btn-success btn-sm"
+                      (click)="downloadAttached(signature.docID, signature.secondSignerID)">{{'download' | translate}}
+              </button>
+            </div>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <a href="javascript:void(0)" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </a>
+  </div>
+  <div class="modal-body text-center">
+    <h3 class="text-danger">{{'no_file_found' | translate}}</h3>
+  </div>
+</ng-template>
+<ngx-spinner bdColor="rgba(7,7,7,0.8)" size="medium" color="#fff" type="fire" [fullScreen]="true"><p
+  style="color: white">{{'downloading' | translate}} </p></ngx-spinner>

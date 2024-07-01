@@ -1,0 +1,59 @@
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12 col-lg-4">
+        <div class="card bg-light-warning no-card-border">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="m-r-10">
+                        <span>Wallet Balance</span>
+                        <h4>$3,567.53</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="line-chart m-b-40">
+                            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+                                [legend]="lineChartLegend" [chartType]="lineChartType">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- column -->
+    <div class="col-sm-12 col-lg-4">
+        <div class="card bg-light-info no-card-border">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="m-r-10">
+                        <span>Referral Earnings</span>
+                        <h4>$769.08</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="ml-auto" style="height: 56px; width: 100px">
+	                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+	                            [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
+	                            [chartType]="barChartType">
+	                        </canvas>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- column -->
+    <div class="col-sm-12 col-lg-4">
+        <div class="card bg-light-success no-card-border">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="m-r-10">
+                        <span>Estimated Sales</span>
+                        <h4>5769</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <div id="foo" style="width: 100px; height: 55px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <h1 class="text-white">
+                            <i class="ti-pie-chart"></i>
+                        </h1>
+                    </div>
+                    <div>
+                        <h4 class="card-title">Bandwidth usage</h4>
+                        <h6 class="text-white op-5">March 2019</h6>
+                    </div>
+
+                </div>
+
+                <div class="row m-t-20 align-items-center">
+                    <div class="col-4">
+                        <h3 class="font-light text-white">50 GB</h3>
+                    </div>
+                    <div class="col-8 text-right">
+                        <div class="ml-auto" style="height: 60px; width: 150px">
+                            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-cyan text-white">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <h1 class="text-white">
+                            <i class="ti-pie-chart"></i>
+                        </h1>
+                    </div>
+                    <div>
+                        <h4 class="card-title">Download count</h4>
+                        <h6 class="text-white op-5">March 2019</h6>
+                    </div>
+
+                </div>
+
+                <div class="row m-t-20 align-items-center">
+                    <div class="col-4">
+                        <h3 class="font-light text-white">14506</h3>
+                    </div>
+                    <div class="col-8 text-right">
+                        <div class="ml-auto" style="height: 75px; width: 185px">
+                            <canvas baseChart [datasets]="lineChartData1" [labels]="lineChartLabels1"
+                                [options]="lineChartOptions1" [colors]="lineChartColors1" [legend]="lineChartLegend1"
+                                [chartType]="lineChartType1">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card ">
+            <div class="card-body">
+                <h4 class="card-title">Product Sale</h4>
+                <div id="visitor2" style="height:223px; width:100%;" class="m-t-20"></div>
+                <!-- row -->
+                <div class="row m-t-30 m-b-15">
+                    <!-- column -->
+                    <div class="col-4 birder-right text-left">
+                        <h4 class="m-b-0">60%
+                            <small>
+                                <i class="ti-arrow-up text-success"></i>
+                            </small>
+                        </h4>Iphone
+                    </div>
+                    <!-- column -->
+                    <div class="col-4 birder-right text-center">
+                        <h4 class="m-b-0">28%
+                            <small>
+                                <i class="ti-arrow-down text-danger"></i>
+                            </small>
+                        </h4>Samsung
+                    </div>
+                    <!-- column -->
+                    <div class="col-4 text-right">
+                        <h4 class="m-b-0">12%
+                            <small>
+                                <i class="ti-arrow-up text-success"></i>
+                            </small>
+                        </h4>One+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4>Last Month Income</h4>
+                <div id="income" class="m-t-30"></div>
+            </div>
+        </div>
+    </div>
+</div>

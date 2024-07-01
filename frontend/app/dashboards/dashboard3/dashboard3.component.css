@@ -1,0 +1,12 @@
+td {
+  padding: 0 !important;
+}
+
+.signer_1 {
+  padding: 5px !important;
+}
+
+.signer_2 {
+  padding: 5px !important;
+  border-top: 2px solid lightgray;
+}
